@@ -1,13 +1,1032 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arunesh — Portfolio</title>
-    <script type="module" crossorigin src="/assets/index-CNtRledK.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DGNW-Vdn.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arunesh — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #060608;
+      --surface: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --text: #e8e8f0;
+      --muted: #555566;
+      --accent: #e03535;
+      --accent-dim: rgba(224, 53, 53, 0.15);
+      --mx: 50%;
+      --my: 50%;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Mouse glow ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(700px circle at var(--mx) var(--my),
+          rgba(224, 53, 53, 0.045),
+          rgba(120, 80, 200, 0.025) 40%,
+          transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+      transition: background 0.05s;
+    }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      background: rgba(6, 6, 8, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    nav.scrolled {
+      border-bottom-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 56px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 24px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px #22c55e;
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero-title .name {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #c42828;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--border-hover);
+      background: var(--surface);
+    }
+
+    .hero-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      filter: grayscale(15%);
+      transition: filter 0.3s, border-color 0.3s;
+    }
+
+    .hero-photo:hover {
+      filter: grayscale(0%);
+      border-color: var(--border-hover);
+    }
+
+    /* ── Section base ── */
+    section {
+      padding: 96px 0;
+    }
+
+    section+section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+      color: var(--text);
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-bio {
+      font-size: 15px;
+      color: #9999aa;
+      line-height: 1.8;
+    }
+
+    .about-bio strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .fact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    .fact-item:hover {
+      border-color: var(--border-hover);
+    }
+
+    .fact-icon {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-top: 1px;
+    }
+
+    .fact-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .fact-text strong {
+      color: var(--text);
+      display: block;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* ── Experience ── */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .exp-card {
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .exp-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      gap: 16px;
+    }
+
+    .exp-role {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .exp-company {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .exp-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .exp-bullets li {
+      font-size: 13px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--border-hover);
+    }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .project-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .project-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s;
+      margin-top: auto;
+    }
+
+    .project-link:hover {
+      opacity: 0.75;
+    }
+
+    .project-link svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* ── Achievements ── */
+    .achieve-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .achieve-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .achieve-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .achieve-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .achieve-event {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .achieve-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Certifications ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .cert-card {
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .cert-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .cert-name {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .cert-link {
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .cert-link:hover {
+      opacity: 0.7;
+    }
+
+    /* ── Contact ── */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .contact-text p {
+      margin-bottom: 12px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-link svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── Scroll fade-in ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 700px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-photo {
+        width: 120px;
+        height: 120px;
+      }
+
+      .about-grid,
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .projects-grid,
+      .achieve-grid,
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Nav -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">ARUN<span>ESH</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-badge">Available for opportunities</div>
+          <h1 class="hero-title">
+            Hi, I'm<br>
+            <span class="name">Arunesh.</span>
+          </h1>
+          <p class="hero-sub">
+            Computer Science Engineer building ML systems, data pipelines, and AI-forward solutions.
+            I design hybrid models, deploy research into production, and write about what breaks.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-outline">Contact Me</a>
+            <a href="https://arun3sh-27.github.io/Arunesh_Vijayanand_Resume.pdf" target="_blank"
+              class="btn btn-outline">Resume ↗</a>
+          </div>
+        </div>
+        <img src="https://arun3sh-27.github.io/assets/profile-CfNGWHf-.jpeg" alt="Arunesh" class="hero-photo" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="wrap">
+      <div class="fade-in">
+        <p class="section-label">// about</p>
+        <h2 class="section-title">More About Arunesh</h2>
+      </div>
+      <div class="about-grid fade-in">
+        <p class="about-bio">
+          I'm a <strong>Computer Science Engineer</strong> with a strong academic foundation from
+          <strong>SRM Institute of Science and Technology</strong> (B.Tech CSE, 2025 — CGPA 8.51).
+          <br><br>
+          My research spans <strong>hybrid ML architectures</strong> — from LRX (LSTM + RF + XGBoost) for AQI
+          forecasting
+          to Fauxect, an ensemble model for fake social media account detection achieving 99.65% accuracy with a
+          manuscript under IEEE review.
+          <br><br>
+          Currently working as a Technology Associate Intern at <strong>Quantis Sphere LLP</strong>,
+          focused on data analysis, visualization, and cybersecurity insights.
+        </p>
+        <ul class="fact-list">
+          <li class="fact-item">
+            <span class="fact-icon">🎓</span>
+            <div class="fact-text">
+              <strong>B.Tech Computer Science</strong>
+              SRM University, 2025 — CGPA 8.51
+            </div>
+          </li>
+          <li class="fact-item">
+            <span class="fact-icon">🏆</span>
+            <div class="fact-text">
+              <strong>InisioHacks 2023 — Winner</strong>
+              Developed Attendease, improved efficiency by 40%
+            </div>
+          </li>
+          <li class="fact-item">
+            <span class="fact-icon">🔬</span>
+            <div class="fact-text">
+              <strong>Fauxect — 99.65% Accuracy</strong>
+              IEEE Access manuscript under faculty review
+            </div>
+          </li>
+          <li class="fact-item">
+            <span class="fact-icon">💼</span>
+            <div class="fact-text">
+              <strong>Currently @ Quantis Sphere LLP</strong>
+              Technology Associate Intern — Data & Cyber
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="fade-in">
+        <p class="section-label">// experience</p>
+        <h2 class="section-title">Because You Worked Here</h2>
+      </div>
+      <div class="exp-list fade-in">
+
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Cybersecurity Job Simulation</div>
+              <div class="exp-company">Mastercard — Forage</div>
+            </div>
+            <span class="exp-date">Sept 2025</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Completed simulation on Mastercard's security awareness team</li>
+            <li>Identified phishing campaigns and social engineering threats</li>
+            <li>Recommended targeted training programs for at-risk teams</li>
+          </ul>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Cyber Job Simulation</div>
+              <div class="exp-company">Deloitte Australia — Forage</div>
+            </div>
+            <span class="exp-date">Sept 2025</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Analyzed web activity logs to surface suspicious patterns</li>
+            <li>Supported simulated breach response workflows</li>
+            <li>Investigated anomalous account activity</li>
+          </ul>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Python Intern</div>
+              <div class="exp-company">Codsoft (Virtual)</div>
+            </div>
+            <span class="exp-date">2024</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Completed Python development tasks within deadlines</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="fade-in">
+        <p class="section-label">// projects</p>
+        <h2 class="section-title">Trending Projects</h2>
+      </div>
+      <div class="projects-grid fade-in">
+
+        <div class="project-card">
+          <div class="project-name">LRX — AQI Prediction &amp; Visualization</div>
+          <p class="project-desc">
+            Hybrid LSTM + RF + XGBoost model for AQI forecasting. Combines temporal sequence learning
+            with ensemble methods.
+          </p>
+          <a href="https://ijournalse.org/index.php/ESJ/article/view/3130" target="_blank" class="project-link">
+            Read the Paper Here
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M1 11L11 1M11 1H4M11 1V8" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">Fauxect — Fake Account Detection</div>
+          <p class="project-desc">
+            Ensemble ML model achieving 99.65% accuracy for fake social media account detection.
+            Flask deployment. IEEE Access manuscript under review.
+          </p>
+          <a href="https://github.com/ARUN3SH-27/Major-project" target="_blank" class="project-link">
+            View on GitHub
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M1 11L11 1M11 1H4M11 1V8" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">Attendease — Attendance Tracker</div>
+          <p class="project-desc">
+            GUI-based attendance automation system. Improved efficiency by 40%.
+            Winner at InisioHacks 2023.
+          </p>
+          <a href="https://github.com/ARUN3SH-27/Inisio-Hacks-2k23" target="_blank" class="project-link">
+            View on GitHub
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M1 11L11 1M11 1H4M11 1V8" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-name">TypeMaster — Gamified Typing App</div>
+          <p class="project-desc">
+            Typing app with WPM tracking at 95% accuracy.
+            Best Gaming Hack at Boost Hacks II.
+          </p>
+          <a href="https://github.com/ARUN3SH-27/BoostHacks2" target="_blank" class="project-link">
+            View on GitHub
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M1 11L11 1M11 1H4M11 1V8" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section id="achievements">
+    <div class="wrap">
+      <div class="fade-in">
+        <p class="section-label">// achievements</p>
+        <h2 class="section-title">Top Achievements</h2>
+      </div>
+      <div class="achieve-grid fade-in">
+
+        <div class="achieve-card">
+          <div class="achieve-event">InisioHacks 2023</div>
+          <div class="achieve-title">🏆 Winner</div>
+          <p class="achieve-desc">
+            Built Attendease — an attendance system that improved efficiency by 40%.
+          </p>
+        </div>
+
+        <div class="achieve-card">
+          <div class="achieve-event">Boost Hacks II</div>
+          <div class="achieve-title">🎮 Best Gaming Hack</div>
+          <p class="achieve-desc">
+            TypeMaster — gamified typing app with 95% WPM tracking accuracy.
+          </p>
+        </div>
+
+        <div class="achieve-card">
+          <div class="achieve-event">ChargerHacks 2023</div>
+          <div class="achieve-title">⚡ Finalist</div>
+          <p class="achieve-desc">
+            Donation DApp on Solana — blockchain-based donation platform.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications">
+    <div class="wrap">
+      <div class="fade-in">
+        <p class="section-label">// certifications</p>
+        <h2 class="section-title">Recommended Certifications</h2>
+      </div>
+      <div class="cert-grid fade-in">
+        <div class="cert-card">
+          <span class="cert-name">Machine Learning Specialization — Coursera</span>
+          <a href="https://coursera.org/share/8e2c7f47b5a0aa98512f2485c6e68e46" target="_blank" class="cert-link">View
+            ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">Introduction to Data Science — Coursera</span>
+          <a href="https://coursera.org/share/01bf0c360e838a03018257304e16c2d9" target="_blank" class="cert-link">View
+            ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">Getting startedwith GO — Coursera</span>
+          <a href="https://coursera.org/share/2a1e28e97a9cf22fdbaf9b91d3c8602a" target="_blank" class="cert-link">View
+            ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">Foundations of AR — Coursera</span>
+          <a href="https://arun3sh-27.github.io/certificates/" target="_blank" class="cert-link">View ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">AWS Academy Machine Learning Foundations</span>
+          <a href="https://www.credly.com/badges/72a86030-4ecd-43a9-970a-3a930882ac03/public_url" target="_blank"
+            class="cert-link">View ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">Zscaler Zero Trust Cloud Security — AICTE</span>
+          <a href="https://aictecert.eduskillsfoundation.org/pages/home/verify.php?cert=a432d281e145935e3969516ec6da37c3"
+            target="_blank" class="cert-link">View ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">AI-ML Virtual Internship — AICTE</span>
+          <a href="https://aictecert.eduskillsfoundation.org/pages/home/verify.php?cert=6077bb62f7a5514811f028f4d614b4d5"
+            target="_blank" class="cert-link">View ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">Palo Alto Cybersecurity Virtual Internship — AICTE</span>
+          <a href="https://aictecert.eduskillsfoundation.org/pages/home/verify.php?cert=86634e93ab48a70ec4273a5b96dbf9ce"
+            target="_blank" class="cert-link">View ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">Google Android Developer Virtual Internship — AICTE</span>
+          <a href="https://aictecert.eduskillsfoundation.org/pages/home/verify.php?cert=6e812d7adfa9b5d4149a7cb8e87998f7"
+            target="_blank" class="cert-link">View ↗</a>
+        </div>
+        <div class="cert-card">
+          <span class="cert-name">SQL for Data Science - coursera</span>
+          <a href="https://coursera.org/share/af7b94fec07ac4816d46607e0e865ef8" target="_blank" class="cert-link">View
+            ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="fade-in">
+        <p class="section-label">// contact</p>
+        <h2 class="section-title">Stay Connected</h2>
+      </div>
+      <div class="contact-inner fade-in">
+        <div class="contact-text">
+          <p>
+            I'm open to roles in data analysis, ML engineering, and AI-forward deployment.
+            Whether it's a project, a research collaboration, or just a conversation — reach out.
+          </p>
+          <p>
+            For certifications, project demos, or anything else — my GitHub and LinkedIn
+            have the full picture.
+          </p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:aruneshvijay2703@gmail.com" class="contact-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M2 7l10 7 10-7" />
+            </svg>
+            aruneshvijay2703@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/arunesh-v/" target="_blank" class="contact-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="4" />
+              <path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 13v4" />
+            </svg>
+            linkedin.com/in/arunesh-v
+          </a>
+          <a href="https://github.com/ARUN3SH-27" target="_blank" class="contact-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
+            </svg>
+            github.com/ARUN3SH-27
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-text footer-mono">© 2026 Arunesh Vijay Anand</span>
+    <span class="footer-text">Built with HTML, CSS & ❤</span>
+  </footer>
+
+  <script>
+    // Mouse spotlight
+    document.addEventListener('mousemove', e => {
+      document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+      document.documentElement.style.setProperty('--my', e.clientY + 'px');
+    });
+
+    // Nav scroll state
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Intersection observer for fade-in
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+
 </html>
